@@ -1,0 +1,16 @@
+# 白名单模式：默认忽略顶层一切，只显式放行要纳入版本管理的内容
+/*
+!/.gitignore
+!/AGENTS.md
+!/PROFILE.md
+!/README.md
+!/skills/
+
+# 系统 / 编辑器 / 运行时垃圾（任意位置都不提交）
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.log
