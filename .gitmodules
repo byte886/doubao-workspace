@@ -1,0 +1,3 @@
+[submodule "skills/wxc"]
+	path = skills/wxc
+	url = git@github.com:byte886/wxc.git
