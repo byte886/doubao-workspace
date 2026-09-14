@@ -1,3 +1,33 @@
 [submodule "skills/wechat-control"]
 	path = skills/wechat-control
 	url = git@github.com:byte886/wechat-control.git
+[submodule "skills/face-detect"]
+	path = skills/face-detect
+	url = git@github.com:byte886/face-detect.git
+[submodule "skills/captcha-reader"]
+	path = skills/captcha-reader
+	url = git@github.com:byte886/captcha-reader.git
+[submodule "skills/idea-to-tickets"]
+	path = skills/idea-to-tickets
+	url = git@github.com:byte886/idea-to-tickets.git
+[submodule "skills/image-text-redact"]
+	path = skills/image-text-redact
+	url = git@github.com:byte886/image-text-redact.git
+[submodule "skills/mac-system-toolkit"]
+	path = skills/mac-system-toolkit
+	url = git@github.com:byte886/mac-system-toolkit.git
+[submodule "skills/multiplatform-media-fetch"]
+	path = skills/multiplatform-media-fetch
+	url = git@github.com:byte886/multiplatform-media-fetch.git
+[submodule "skills/okf-wiki"]
+	path = skills/okf-wiki
+	url = git@github.com:byte886/okf-wiki.git
+[submodule "skills/photo-organize"]
+	path = skills/photo-organize
+	url = git@github.com:byte886/photo-organize.git
+[submodule "skills/web-research-toolkit"]
+	path = skills/web-research-toolkit
+	url = git@github.com:byte886/web-research-toolkit.git
+[submodule "skills/work-doc-extract"]
+	path = skills/work-doc-extract
+	url = git@github.com:byte886/work-doc-extract.git
