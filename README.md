@@ -52,7 +52,7 @@
 | `photo-organize` | 家庭照片批量整理：人脸预筛、联系表、分类、查重、完整性校验 |
 | `face-detect` | 基于 macOS Vision 的本地批量人脸检测（文件名→人脸数） |
 | `captcha-reader` | 浏览器自动化中图形验证码的图像增强与识别辅助 |
-| `idea-to-tickets` | 想法→工单四步法：clarify 澄清 / spec 成规范 / slice 拆垂直工单 / explain 讲清楚 |
+| `idea-to-tickets` | 想法→工单四步法（clarify 澄清 / spec 成规范 / slice 拆垂直工单 / explain 讲清楚）＋角色分工模块（职能四角色协作、领域专家角色扩展） |
 | `okf-wiki` | OKF v0.2 本地结构化知识库 / 跨会话外置记忆（本地目录，**不是飞书空间**） |
 | `wechat-control` | 微信本地数据库只读查询与 AI 总结（基于 wx-cli，**开发中**，目录暂含研发文档） |
 
