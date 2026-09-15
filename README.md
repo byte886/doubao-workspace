@@ -3,7 +3,7 @@
 这是豆包（AI 助手）在本机的**总工作区与长效记忆根目录**，同时面向人和新接手的 AI：看这一页就能知道"东西在哪、按什么链路恢复、去哪找细则"。
 
 > 本文件是**唯一导航源**（单一数据源，避免漂移）：规则内核在豆包「设置 → 工作任务偏好指令」，机制细则在 `AGENTS.md`，事实在 `PROFILE.md`；载体地图、冷启动顺序、技能清单只在本文件维护，其他文件不复制。
-> 最后更新：2026-09-15
+> 最后更新：2026-09-16
 
 ---
 
@@ -54,12 +54,12 @@
 | `captcha-reader` | 浏览器自动化中图形验证码的图像增强与识别辅助 |
 | `idea-to-tickets` | 想法→工单四步法（clarify 澄清 / spec 成规范 / slice 拆垂直工单 / explain 讲清楚）＋角色分工模块（职能四角色协作、领域专家角色扩展） |
 | `okf-wiki` | OKF v0.2 本地结构化知识库 / 跨会话外置记忆（本地目录，**不是飞书空间**） |
-| `wechat-control` | 微信本地数据库只读查询与 AI 总结（基于 wx-cli，**开发中**，目录暂含研发文档） |
+| `wechat-control` | 微信本地数据只读查询/AI 总结、语音转写、消息监控、受控写（仅小号 alt）与可选 MCP（基于 wx-cli，微信锁 ~4.1.8）；运行面为 SKILL+references+scripts，docs/ 设计文档随仓公开、实测日志与数据字典仅本地私有 |
 | `dual-machine-manager` | 两台 Mac（本机 cw + 远程黑苹果 wj）统一运维管家：系统信息、SSH 互访、launchd/brew/cron 服务管理、凭证管理、OpenToken/TokenRank、包管理/IDE/软件盘点、SSH密钥/Git工具、机器健康度、双机差异对比与一致性维护、远程关机、双机同步、日常巡检、故障排查 SOP |
 | `project-manager` | 个人/小团队多项目并行的轻量项目管理方法论，按专业三层骨架组织：L1 项目组合管理 PPM（盘点/优先级/健康灯/7±2纪律）、L2 单项目生命周期（启动 Initiate / 执行监控 Monitor / 收尾归档 Close）、L3 阶段门评审 Phase-Gate（G1立项/G2验证/G3发布，Go-Conditional-Hold-Kill，批量评审）。源自 PMBOK 8、PPM、伯克利状态定义、PARA/GTD，默认轻量版 |
 | `security-baseline` | 全局横切的开发/AI 安全基线与"凭证来处·取密 SOP"（纯方法论、无脚本，**不改造用户个人密码习惯**）：凭证分级与"存哪里"、AI/开发取—用—弃取密流程、公开仓五道防线与泄漏应急、VPN/代理安全；加解密/巡检动作复用 mac-system-toolkit，双机凭证台账在 dual-machine-manager |
 
-> 新建技能一律放 `skills/`，且**目录名必须等于 SKILL.md frontmatter 的 name**；官方技能在应用内部目录，不放个人产物。技能规范（平台标注、开发中约定）见 `AGENTS.md` 第四章。
+> 新建技能一律放 `skills/`，且**目录名必须等于 SKILL.md frontmatter 的 name**；官方技能在应用内部目录，不放个人产物。技能规范（平台标注、运行/开发面分层、切分合并判据、评审 checklist）见 `AGENTS.md` 第四章。
 
 ## 五、维护约定（速查：什么事去哪看）
 
