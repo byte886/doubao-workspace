@@ -1,8 +1,8 @@
 # 包管理工具深度盘点
 
-> 最后更新：2026-09-15
-> 数据来源：双机深度盘点报告（2026-09-15 实际命令采集）。
-> 本机 `cw` = chenwenjie @ 192.168.2.8；远程机 `wj` = wenjiechen @ 192.168.2.9（黑苹果，无 Homebrew）。
+> 本机 `cw` = chenwenjie @ 192.168.2.8；远程机 `wj` = wenjiechen @ 192.168.2.9（黑苹果）。
+> 两台都装 Homebrew（prefix 均为 /usr/local）；版本/包数量是易变时点值，以现场 `brew list` / `<cmd> --version` 实测为准。
+> **关键坑**：远程机非交互 SSH 的 PATH 不含 /usr/local/bin，`ssh wj brew` 会误报 command not found——用 `/usr/local/bin/brew` 或先 `export PATH=/usr/local/bin:$PATH`，并非没装。
 
 ---
 
@@ -10,17 +10,17 @@
 
 | 包管理器 | 本机 cw | 远程机 wj | 差异要点 |
 |---|---|---|---|
-| **Homebrew** | ✅ 7.0.1-5-g66413cb，prefix `/usr/local`，**206 formulae + 10 casks** | ❌ 未安装（黑苹果） | 最大能力差距来源 |
-| **npm** | ⚠️ 10.9.8，**仅在 Doubao sandbox 内**，全局仅 corepack+npm | ❌ 无 | 系统级两台都没有 |
-| **pip3** | ⚠️ 26.2.1 / Python 3.14（sandbox 内），仅 pip 一包；另有 brew 安装的 python@3.10~3.14 | ✅ 21.2.4 / Python 3.9（Xcode 自带框架） | 远程机 Python 版本旧且固定 |
-| **gem** | ✅ 3.6.3，`/usr/local/opt/ruby/bin/gem`，89 个 gem（多为 ruby 默认自带） | ✅ 3.0.3.1（系统自带） | 远程机 gem 版本旧 |
-| **cargo / rustup** | ✅ cargo 1.81.0，rustup 管 **12 个 toolchain**，默认 1.81 | ✅ cargo 1.70.0，rustup 管 **9 个 toolchain**，默认 1.70 | 两台都用 rustup 多版本 |
+| **Homebrew** | ✅ prefix `/usr/local`，206 formulae + 10 casks（时点值） | ✅ prefix `/usr/local`，170 formulae + 6 casks（时点值），非交互 PATH 不含 /usr/local/bin | 两台都有，本机更全 |
+| **npm/node** | 系统级由 mise 提供（Doubao sandbox 内另带 npm） | ✅ brew node/npm 在 /usr/local/bin（版本实测为准） | 来源不同，远程补 PATH 即可用 |
+| **pip3/python3** | brew python@3.10~3.14（sandbox 内另带 pip） | brew python@3.12/3.14（/usr/local/bin 优先）；/usr/bin 另有 Xcode 旧 3.9 | 远程补 PATH 后即为新版 |
+| **gem** | ✅ 3.6.3，`/usr/local/opt/ruby/bin/gem`，89 个 gem（多为 ruby 默认自带） | ✅ 3.0.3.1（系统自带） | 远程 gem 版本旧 |
+| **cargo / rust** | ✅ rustup 多 toolchain（另含 brew rust），版本实测为准 | ✅ /usr/local/bin brew rust 1.95，另可能有 rustup | 固定版本用 rust-toolchain.toml |
 | **mise**（版本管理） | ✅ `~/.local/bin/mise`，管 node/java/maven/gradle | ❌ 无 | 仅本机 |
 | **nvm** | ❌ 无（已改用 mise） | ❌ 无 | — |
 | **pnpm** | ✅ mise shim | ❌ 无 | 仅本机 |
 | **yarn** | ✅ `/usr/local/bin/yarn`（brew） | ❌ 无 | 仅本机 |
-| **go** | ✅ `~/go/bin/go` | ❌ 无 | 仅本机 |
-| **java** | ✅ mise temurin-17.0.20 | ✅ `/usr/bin/java`（系统自带） | 来源不同 |
+| **go** | ✅ `~/go/bin/go` | ✅ `/usr/local/bin/go`（brew） | 两台都有 |
+| **java** | ✅ mise temurin-17 | ⚠️ 仅 /usr/bin/java 桩、无 JRE（报 Unable to locate），需要时 brew install | 远程暂无可用 JDK |
 | **maven** | ✅ mise 3.9.16 | ❌ 无 | 仅本机 |
 | **gradle** | ✅ mise 8.1.1 | ❌ 无 | 仅本机 |
 
@@ -28,14 +28,14 @@
 
 ## 二、各包管理器详情
 
-### 2.1 Homebrew（本机独有）
+### 2.1 Homebrew（双机均装，本机更全）
 
-- **版本/路径**：7.0.1-5-g66413cb，prefix `/usr/local`（Intel Mac 默认路径）。
-- **规模**：206 formulae + 10 casks。
-- **是否系统自带**：否，手动安装。
-- **用途定位**：本机命令行工具链与 GUI 应用的统一入口。
+- **路径**：两台 prefix 都是 `/usr/local`（Intel Mac 默认路径），均为手动安装、非系统自带。
+- **规模（时点值，以 `brew list` 为准）**：本机约 206 formulae + 10 casks；远程机约 170 formulae + 6 casks。
+- **远程机 PATH 坑**：非交互 ssh 默认 PATH 不含 /usr/local/bin，远程调用一律用 `/usr/local/bin/brew` 或命令前 `export PATH=/usr/local/bin:$PATH`。
+- **用途定位**：两台命令行工具链与 GUI 应用的统一入口。
 
-#### formulae 分类摘要（206 个，按用途归类）
+#### formulae 分类摘要（本机，时点快照；以 brew list 为准）
 
 | 分类 | 关键包（节选） |
 |---|---|
@@ -55,12 +55,12 @@
 - **现状**：本机 npm 10.9.8 位于 Doubao sandbox 运行时内（`.../sandbox_runtime/bases/.../bin/npm`），**系统级 shell 中没有 npm**。
 - **全局包**：仅 corepack + npm 两个。
 - **含义**：需要在终端全局安装 node CLI 工具时，不能依赖 `npm i -g`；node 运行时与 pnpm 实际由 **mise** 提供（见 2.6）。
-- **远程机**：完全无 npm。
+- **远程机**：brew 已装 node/npm（/usr/local/bin）；非交互 SSH 下同样要补 PATH。
 
 ### 2.3 pip3 / Python
 
-- **本机**：sandbox 内 pip 26.2.1（Python 3.14）；系统级另有 brew 安装的 python@3.10~3.14 共 5 个版本。
-- **远程机**：pip 21.2.4 / Python 3.9，来自 Xcode 自带框架，**版本旧且无法用 brew 升级**。
+- **本机**：brew 安装 python@3.10~3.14 多版本；sandbox 内另带 pip。
+- **远程机**：/usr/local/bin 有 brew python@3.12/3.14（补 PATH 后优先、较新）；/usr/bin/python3 仍是 Xcode 自带 3.9（旧，勿误用）。
 
 ### 2.4 gem
 
@@ -71,12 +71,10 @@
 
 | 项目 | 本机 cw | 远程机 wj |
 |---|---|---|
-| cargo | 1.81.0 | 1.70.0 |
-| rustup toolchain 数 | 12 个 | 9 个 |
-| 默认 toolchain | 1.81 | 1.70 |
-| 含旧版本 | 1.63/1.66/1.67/1.75/1.76/1.79/1.80/1.81 + stable/nightly | 1.67/1.75/1.76/1.79/1.80 等 |
+| 来源 | rustup 多 toolchain（另含 brew rust） | /usr/local/bin brew rust 1.95，另可能有 rustup |
+| 版本 | 以 `cargo --version` / `rustup toolchain list` 实测为准 | 同左 |
 
-两台均通过 rustup 手动管理多 toolchain，**这是远程机唯一较完整的语言工具链**。
+两台都有 Rust 工具链；跨机编译注意版本差异，固定版本的项目用 `rust-toolchain.toml` 锁定，不依赖某台机器的默认版本。
 
 ### 2.6 mise（本机版本管理器）
 
@@ -91,29 +89,29 @@
 
 ---
 
-## 三、远程机无 Homebrew 的影响与应对
+## 三、远程机 Homebrew 现状与非交互 PATH 应对
 
-### 影响
+### 现状
+远程机**已装** Homebrew（/usr/local，约 170 formulae），node/npm、python3.14、go、rust、aria2、autoconf、7z 等常见工具齐全，并非"无包管理"。
 
-远程机命令行工具安装能力极弱：仅靠 Xcode 自带 Python 3.9 + 系统 gem 3.0.3.1 + 手动安装的 rustup。装新工具没有统一入口。
+### 唯一高频坑：非交互 SSH 的 PATH
+`ssh wj '<cmd>'` 的默认 PATH 是 `~/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin`，不含 /usr/local/bin，于是 brew 装的工具会 command not found（看着像没装）。三种解法：
 
-### 应对方案（按需选择）
+```bash
+ssh wj '/usr/local/bin/brew list'                       # 1) 直接绝对路径
+ssh wj 'export PATH=/usr/local/bin:$PATH; brew list'    # 2) 命令前补 PATH
+ssh wj -t 'zsh -lc "brew list"'                         # 3) 走登录 shell（-t + -l）
+```
 
-1. **继续不装 Homebrew（当前策略，推荐）**：远程机定位为精简编译/提交机，原则上不引入新命令行工具；确需用到的工具尽量在本机装好后通过代码/产物交付。
-2. **临时安装单个工具**：从官方 Releases 下载预编译二进制，放入 `~/.local/bin/` 或 `~/bin/`（远程机 powerwebhook 即用此方式放脚本）。
-3. **手动编译**：`./configure && make && make install` 到 `~/local/`，不污染系统目录。
-4. **如确实需要 Homebrew**（不推荐，破坏「精简机」定位）：
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-   安装前先确认这是否符合远程机角色定位。
+### 新增工具原则
+远程机定位精简，新增 CLI 前先确认符合其角色；能在本机处理的重型工具链不必两边都装。
 
 ---
 
 ## 四、包管理一致性维护建议
 
-1. **远程机刻意保持「无 Homebrew」**，不要为图方便在远程机 brew install，避免破坏精简机定位。
+1. **远程机已装 Homebrew 但保持精简**，新增包前确认符合其角色；非交互 SSH 注意用绝对路径或补 PATH。
 2. **本机新工具优先走 Homebrew**（`brew install`），装完在 `references/package-managers.md` 记录关键包。
 3. **node/java 相关以 mise 为准**，不再引入 nvm/jenv，避免多套版本管理器并存。
 4. **cargo toolchain 保持双机兼容**：跨机编译的 Rust 项目，默认 toolchain 版本差距较大（1.81 vs 1.70），涉及固定版本的项目用 `rust-toolchain.toml` 锁定，不依赖机器默认。
-5. **Python 注意版本**：远程机只有 3.9，脚本不要用 3.10+ 专属语法。
+5. **Python 注意解释器来源**：远程机 /usr/bin/python3 是旧 3.9，新语法脚本用 /usr/local/bin/python3（3.12/3.14）或在脚本头写死解释器路径，避免落到系统旧版。

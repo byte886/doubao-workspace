@@ -1,7 +1,6 @@
 # 后台服务与守护进程清单
 
-> 最后更新：2026-09-15
-> 两台机器的 launchd 服务、brew 服务、cron 任务等后台进程的唯一记录。
+> 两台机器的 launchd 服务、brew 服务、cron 任务等后台进程记录；实际加载状态以 launchctl 现场查看为准。
 
 ---
 
@@ -75,9 +74,9 @@ brew services restart <name>         # 重启
 
 ### 2.2 Homebrew
 
-远程机**未安装 Homebrew**。如需安装：
+远程机**已装** Homebrew（/usr/local，约 170 formulae + 6 casks）。非交互 SSH 的 PATH 不含 /usr/local/bin，远程查 brew 服务用绝对路径：
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+ssh wj '/usr/local/bin/brew services list'
 ```
 
 ### 2.3 cron 任务

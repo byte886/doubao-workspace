@@ -19,11 +19,12 @@ compatibility: macOS（已验证：macOS 15.7.8 x86_64，两台机器均为 Mac�
 
 | 别名 | 主机名 | 用户名 | IP | 定位 |
 |---|---|---|---|---|
-| `cw`（本机） | 192.168.2.8 | chenwenjie | 192.168.2.8 | 主力机，931GB，有 Homebrew |
-| `wj`（远程） | 192.168.2.9 | wenjiechen | 192.168.2.9 | 黑苹果，3.7TB，无 Homebrew |
+| `cw`（本机） | 192.168.2.8 | chenwenjie | 192.168.2.8 | 全能工作站，931GB，Homebrew（/usr/local） |
+| `wj`（远程） | 192.168.2.9 | wenjiechen | 192.168.2.9 | 黑苹果，3.7TB，Homebrew 在 /usr/local（非交互 SSH 的 PATH 不含它，命令用绝对路径或先补 PATH） |
 
-- SSH 互访：本机 `ssh wj` → 远程机；远程机 `ssh cw` → 本机
-- 双机同步：`~/Doubao` git 仓库，提交统一在 wenjiechen 机执行
+- SSH 互访：本机 `ssh wj` → 远程机；远程机 `ssh cw` → 本机（已互配免密 + ControlMaster）
+- 双机同步：`~/Doubao` git 仓库，**两台机器都可直接提交并 push**；对端只做快进对齐（fetch → 确认无未推送提交 → `merge --ff-only` → 子模块更新），**禁止 `git pull`**，详见 references/sop.md 第二节
+- **非交互 SSH 的 PATH 坑（重要）**：`ssh wj '<cmd>'` 的默认 PATH 是 `~/.cargo/bin:/usr/bin:/bin:/usr/sbin:/sbin`，**不含 `/usr/local/bin`**，所以 `ssh wj brew` 会 command not found（并非没装）。用绝对路径 `/usr/local/bin/brew`，或命令前 `export PATH=/usr/local/bin:$PATH`
 
 ## 文档索引（按需加载）
 
@@ -34,8 +35,8 @@ compatibility: macOS（已验证：macOS 15.7.8 x86_64，两台机器均为 Mac�
 | [references/credentials.md](references/credentials.md) | 需要密码、token、密钥等凭证时 | sudo 密码、SSH 密钥、GitHub PAT、关机 Webhook token、OpenToken 凭证的位置与管理方式（敏感值不在这里明文存储） |
 | [references/opentoken.md](references/opentoken.md) | 需要安装/验证/卸载/排查 OpenToken（TokenRank）时 | OpenToken 全流程 SOP：安装、验证（必做四项）、常用命令、文件位置、卸载、故障排查、当前部署状态 |
 | [references/sop.md](references/sop.md) | 需要执行标准运维流程时 | 日常巡检、双机同步、服务管理、远程关机、故障排查、新工具接入、凭证轮换等 SOP |
-| [references/package-managers.md](references/package-managers.md) | 需要对比/安装/排障包管理器时 | 双机包管理工具对比（Homebrew/npm/pip3/gem/cargo/mise/pnpm/yarn/go/java/maven/gradle）、本机 206 formulae 分类、远程机无 Homebrew 的应对、npm sandbox 隔离、mise 作用、一致性维护建议 |
-| [references/ide-and-software.md](references/ide-and-software.md) | 需要盘点 IDE/软件或修远程机 code CLI 时 | IDE/开发工具对比、本机 VS Code 14 扩展清单、远程机无 code CLI 修复、常用软件按分类双机对比（共有/仅本机/仅远程机） |
+| [references/package-managers.md](references/package-managers.md) | 需要对比/安装/排障包管理器时 | 双机包管理工具对比（Homebrew/npm/pip3/gem/cargo/mise/pnpm/yarn/go/java/maven/gradle）、本机 formulae 分类、远程机 Homebrew 现状与非交互 SSH 的 PATH 坑、node/npm 来源、mise 作用、一致性维护建议 |
+| [references/ide-and-software.md](references/ide-and-software.md) | 需要盘点 IDE/软件时 | IDE/开发工具对比、本机 VS Code 扩展清单、远程 code CLI 现状、常用软件按分类双机对比（共有/仅本机/仅远程机） |
 | [references/security-and-git.md](references/security-and-git.md) | 需要处理 SSH/密钥/钥匙串/Git/GitHub 多账号时 | SSH 配置对比、本机已加载密钥指纹、远程机 ssh-agent 未运行修复 SOP、钥匙串/GPG/密码管理器状态、Git 工具对比、远程机 git credential helper 失效修复、GitHub 三账号分流 |
 | [references/health.md](references/health.md) | 需要看机器健康度/磁盘/内存/巡检命令时 | 资源占用对比、🔴4 个优先问题、🟡关注项、🟢健康项、磁盘详情、Home 目录大户、系统更新、只读巡检命令清单 |
 | [references/comparison.md](references/comparison.md) | 需要理解双机定位/差异/一致性策略时 | 双机定位总结、全维度差异总表、必须一致/允许差异/需修复不对称、双机同步 SOP、新工具双机决策流程 |
@@ -65,7 +66,8 @@ ssh wj 'df -h; echo "---ssh-agent---"; ssh-add -l 2>&1; echo "---credential---";
 
 ### 远程关机
 ```bash
-ssh wj 'echo "***REMOVED***" | sudo -S shutdown -h now'
+# sudo 密码不在仓库明文（见 references/credentials.md）；需要时由用户提供，用占位传入
+ssh wj 'echo "<sudo密码>" | sudo -S shutdown -h now'
 ```
 
 ### OpenToken 手动上报
@@ -73,10 +75,12 @@ ssh wj 'echo "***REMOVED***" | sudo -S shutdown -h now'
 ~/.local/bin/opentoken upload
 ```
 
-### 双机同步（git 提交在远程机执行）
+### 双机同步（两机均可提交；对端只快进、禁 pull）
 ```bash
-ssh wj 'cd ~/Doubao && git add -A && git commit -m "<msg>" && git push'
-cd ~/Doubao && git pull
+# 在任一台正常提交并 push
+cd ~/Doubao && git add -A && git commit -m "<msg>" && git push
+# 另一台对齐：先 fetch，确认本地没有未推送提交，再只快进、更新子模块（不产生合并提交）
+cd ~/Doubao && git fetch origin && test -z "$(git rev-list origin/main..HEAD)" && git merge --ff-only origin/main && git submodule update --init --recursive
 ```
 
 ## 安全红线

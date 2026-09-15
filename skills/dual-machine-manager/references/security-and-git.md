@@ -1,8 +1,6 @@
 # SSH / 密钥 / 密码 / 钥匙串 + Git 工具
 
-> 最后更新：2026-09-15
-> 数据来源：双机深度盘点报告（2026-09-15 实际命令采集）。
-> **敏感原则**：本文只记录密钥路径与指纹，绝不记录私钥内容、口令、token 明文。
+> **敏感原则**：本文只记录密钥路径与指纹，绝不记录私钥内容、口令、token 明文；易变版本号以现场实测为准。
 
 ---
 
@@ -80,10 +78,10 @@ UseKeychain yes
 
 | 项目 | 本机 cw | 远程机 wj |
 |---|---|---|
-| git 版本 | 2.50.1 (Apple Git-155) | 2.39.5 (Apple Git-154) |
+| git 版本 | 2.50.1（/usr/bin Apple git） | /usr/bin 为 2.39.5 Apple git，/usr/local/bin 另有 brew git 2.55；非交互默认走 /usr/bin |
 | user.name | softwarecheng | softwarecheng |
 | user.email | softwarecheng@126.com | softwarecheng@126.com |
-| **gh (GitHub CLI)** | ✅ `/usr/local/bin/gh` | ⚠️ config 引用 `/usr/local/bin/gh` 但**二进制不存在** |
+| **gh (GitHub CLI)** | ✅ `/usr/local/bin/gh` | ✅ `/usr/local/bin/gh`（2.98 已装；非交互 PATH 不含 /usr/local/bin 时用绝对路径） |
 | lazygit / git-flow | ❌ 无 | ❌ 无 |
 | Git GUI 工具 | ❌ 无（无 GitHub Desktop/Sourcetree/Tower/Fork） | ❌ 无 |
 | 全局 hooksPath | 未设置 | 未设置 |
@@ -96,31 +94,20 @@ UseKeychain yes
   - LFS 三件套已配置。
 - **远程机**：
   - `safe.directory = *`
-  - `credential.https://github.com.helper = !/usr/local/bin/gh auth git-credential`（**指向不存在的 gh**）
+  - `credential.https://github.com.helper = !/usr/local/bin/gh auth git-credential`（gh 现已存在、配置有效；但主仓走 SSH，实际不经过该 helper）
   - `diff.submodule = log`、`status.submodulesummary = true`、`push.recursesubmodules = on-demand`、`submodule.recurse = true`
 
 ---
 
-## 六、🔴 远程机 git credential helper 失效 — 修复
+## 六、远程机 git credential helper（已解决，留档）
 
-### 问题
-远程机 `credential.helper` 指向 `!/usr/local/bin/gh auth git-credential`，但远程机无 Homebrew、gh 二进制不存在。HTTPS 方式 clone/push GitHub 仓库时凭据助手会报错。由于 **git 提交统一在远程机执行**，此问题影响面大。
+### 现状（实测）
+远程机配了 `credential.https://github.com.helper = !/usr/local/bin/gh auth git-credential`（gist 同样一条）。早期 gh 未装时该 helper 指向空、HTTPS 操作会报错；**现在 gh 2.98 已装于 /usr/local/bin，helper 有效，问题已自行消除**。
 
-### 修复方案（二选一）
-
-```bash
-# 方案一（推荐）：改用 macOS 钥匙串原生凭据助手，不依赖 gh
-ssh wj 'git config --global --unset credential.https://github.com.helper'
-ssh wj 'git config --global credential.helper osxkeychain'
-
-# 方案二：在远程机装 gh（需先解决无 Homebrew 问题，见 package-managers.md）
-# 从 https://github.com/cli/cli/releases 下载 gh 预编译二进制到 ~/.local/bin/
-```
-
-修复后验证：
-```bash
-ssh wj 'git config --global --get credential.helper'   # 应为 osxkeychain
-```
+### 注意
+- 主仓与各技能仓都走 **SSH**（origin 为 `git@github.com`），不经过 credential helper，因此该项本就不影响提交/push。
+- 非交互 SSH 的 PATH 不含 /usr/local/bin，若确需在 ssh 里调 gh，用绝对路径 `/usr/local/bin/gh`。
+- 若将来改用 HTTPS 且不想用 gh helper，可改钥匙串：`git config --global credential.helper osxkeychain`。
 
 ---
 
@@ -135,7 +122,7 @@ ssh wj 'git config --global --get credential.helper'   # 应为 osxkeychain
 | web3 | `github-web3` | `id_rsa` |
 
 - **远程机**：仅主力单账号，走 `id_rsa_softwawrecheng:443`，无分流别名。
-- **含义**：跨账号仓库操作只在本机做；远程机只承担主力账号的提交/push。
+- **含义**：跨账号仓库操作只在本机做；主力账号仓库两机均可提交/push。
 
 ---
 
@@ -148,7 +135,7 @@ ssh wj 'git config --global --get credential.helper'   # 应为 osxkeychain
 
 ## 九、维护建议
 
-1. **优先修两个 🔴**：远程机 ssh-agent（第三节）、远程机 git credential helper（第六节）——这两项是与本机成熟配置最不对称的地方。
+1. **优先修远程机 ssh-agent**（第三节）——这是当前唯一仍存在的不对称项；credential helper 已随 gh 安装解决（见第六节）。
 2. **git 用户配置两台保持一致**（已是 softwarecheng / softwarecheng@126.com），不要在某台单独改。
-3. **GitHub 多账号只在本机**，远程机不补分流，符合其单账号提交机定位。
+3. **GitHub 多账号只在本机**，远程机不补分流，符合其单账号定位。
 4. **如需 GPG 签名**：仅本机 `brew install gnupg`，远程机不跟进（其只做主力账号提交，签名策略由本机决定）。

@@ -1,6 +1,5 @@
 # 标准操作流程（SOP）总览
 
-> 最后更新：2026-09-15
 > 两台机器日常维护的标准操作流程。每个 SOP 都是可直接执行的步骤清单。
 
 ---
@@ -36,23 +35,28 @@
 
 **触发**：用户说「同步两台机器」「推送 Doubao」「git 同步」
 
-### 背景
+### 背景与原则
 - `~/Doubao` 是两台机器共享的工作区（README、PROFILE、AGENTS、skills、chats）
-- git 提交统一在 `wenjiechen` 机（远程黑苹果 wj）执行
-- 本机（chenwenjie）通过 SSH 在远程机执行 git 操作
+- **两台机器都可以直接提交并 push**，不再限定某一台；远程机 wj 不是唯一提交点
+- **对端只做快进（ff-only）对齐，禁止 `git pull`、禁止产生合并提交**；子模块改动遵循"先子后父"
 
 ### 步骤
-1. **在远程机执行 git 操作**
+1. **当前机：确认工作区后提交推送**
    ```bash
-   ssh wj 'cd ~/Doubao && git status'
-   ssh wj 'cd ~/Doubao && git add -A && git commit -m "<提交信息>"'
-   ssh wj 'cd ~/Doubao && git push'
+   cd ~/Doubao && git status -s          # 有在途改动先列给用户，不擅自丢弃
+   git add -A && git commit -m "<提交信息>" && git push
    ```
+   若含子模块（`skills/<仓>`）：先进子仓 commit/push，再回主仓 `git add skills/` 提交（已配 push.recurseSubmodules=on-demand）。
 
-2. **本机拉取最新**
+2. **另一台：快进对齐（不要用 pull）**
    ```bash
-   cd ~/Doubao && git pull
+   cd ~/Doubao
+   git fetch origin
+   git rev-list origin/main..HEAD       # 必须为空（本地无未推送提交）才继续，否则先处理在途提交
+   git merge --ff-only origin/main
+   git submodule update --init --recursive
    ```
+   经 ssh 在远程机执行时，其非交互 PATH 不含 /usr/local/bin；对齐只用系统 git（/usr/bin）即可，无需 brew 版。
 
 3. **注意事项**
    - 技能和脚本内禁止硬编码 `/Users/<用户名>`，用 `$HOME` / `Path.home()` / `~`
@@ -126,7 +130,7 @@ rm -rf ~/.opentoken ~/.local/bin/opentoken ~/Library/LaunchAgents/com.opentoken.
 
 ### 方式二：通过 SSH（推荐，更可靠）
 ```bash
-ssh wj 'echo "***REMOVED***" | sudo -S shutdown -h now'
+ssh wj 'echo "<sudo密码，见 credentials.md>" | sudo -S shutdown -h now'
 ```
 
 ### 方式三：SSH 后手动
