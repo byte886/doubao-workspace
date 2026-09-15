@@ -37,3 +37,6 @@
 [submodule "skills/project-manager"]
 	path = skills/project-manager
 	url = git@github.com:byte886/project-manager.git
+[submodule "skills/security-baseline"]
+	path = skills/security-baseline
+	url = git@github.com:byte886/security-baseline.git
