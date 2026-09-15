@@ -1,6 +1,5 @@
 # 模板汇总（templates）
 
-> 最后更新：2026-09-15
 > 一页索引：所有模板在哪、用在哪个模块、哪一步。需要哪个就去对应 reference 复制完整模板。
 
 ## 模板索引表
@@ -22,6 +21,13 @@
 | 关闭六步 Checklist | close 收尾 | 关闭 SOP 全程 | [close.md § 关闭 SOP](close.md#关闭-sop六步) |
 | 技术退役清单 | close 收尾 | 关闭 SOP 第 5 步：资源释放 | [close.md § 第 5 步：资源释放](close.md#第-5-步资源释放技术退役清单) |
 | 月度巡检 Checklist | close 维护 | 项目执行中每月巡检 | [close.md § 项目维护巡检 Checklist](close.md#项目维护巡检-checklist月度) |
+| 工程记忆 index | execution-patterns 执行 | 跨会话恢复架构/链路/治理 | [execution-patterns.md §一](execution-patterns.md) |
+| TASK_STATUS 任务台账 | execution-patterns 执行 | 中大型项目执行期唯一进度真相 | [execution-patterns.md §二](execution-patterns.md) |
+| ISSUES 问题清单 | execution-patterns 执行 | 执行期开放/已解决/做不通问题 | [execution-patterns.md §二](execution-patterns.md) |
+| 批次状态 JSON / JSONL | execution-patterns 执行 | 批量任务断点续传 | [execution-patterns.md §三](execution-patterns.md) |
+| 文档同步检查清单 | execution-patterns 执行 | 每次 git 提交前 | [execution-patterns.md §四](execution-patterns.md) |
+| 存储分工 / 数据层编号 | execution-patterns 执行 | 内容类大项目分工与编号 | [execution-patterns.md §五、§六](execution-patterns.md) |
+| 项目级 AGENTS | execution-patterns 执行 | 项目开工即建 | [execution-patterns.md §七](execution-patterns.md) |
 
 ## 快速复制区（按使用顺序）
 
@@ -177,6 +183,174 @@
 - [ ] 第 4 步：台账状态改 Completed / Cancelled
 - [ ] 第 5 步：停订阅/域名/服务，撤销 token
 - [ ] 第 6 步：对外项目发 EOL 公告
+
+---
+
+## 实战执行模式模板（execution-patterns）
+
+> 以下模板从真实项目（multiplatform-content-pipeline）提炼，适用于进入执行阶段的中大型项目。
+
+### 9. TASK_STATUS.md 模板（活跃任务台账）
+
+```markdown
+# 任务状态台账
+
+> 本页是"当前做什么、到哪"的唯一进度真相，实时更新。
+> 需求溯源看 docs/REQUIREMENTS.md，开放缺陷看 ISSUES.md。
+> 稳定技术结论的权威版在 ADR / 工程记忆，本页只放指针、不复制结论。
+
+## 依赖与并行前沿
+- **阶段1**：✅ 完成（commit xxx）
+- **阶段2**：⏳ 进行中
+- **阶段3**：📋 待启动
+- 可并行：A（后台运行）与 B（前台开发）可同时进行
+
+## 工单清单
+
+| 编号 | 标题 | 类型 | 前置 | 状态 | 验收 / 落点 |
+|------|------|------|------|------|------------|
+| T-01 | xxx | feature | 无 | done | 产出物路径 |
+| T-02 | xxx | feature | T-01 | doing | 预期产出 |
+| T-03 | xxx | bugfix | 无 | blocked | 阻塞原因 |
+| T-04 | xxx | refactor | 无 | todo | 预期产出 |
+
+状态四档：todo / doing / blocked / done
+
+## 关键口径（指针，不展开）
+- **技术点A**：结论一句话 → 见工程记忆 concepts/xxx
+- **技术点B**：结论一句话 → 见 ADR-002
+
+## 下一步（按优先级）
+1. 最高优先级任务（T-xx）
+2. 次优先级任务（T-xx）
+3. 可后台运行的任务（T-xx）
+```
+
+### 10. ISSUES.md 模板（问题清单）
+
+```markdown
+# 问题清单
+
+## 开放问题（Open）
+
+### ISSUE-001: 问题标题
+- **状态**：待启动 / 研究中 / 修复中
+- **发现时间**：YYYY-MM-DD
+- **问题描述**：具体现象、影响范围
+- **根因**：（找到后填写）
+- **方案**：（确定后填写）
+- **验证**：（修复后填写验证方法和结果）
+
+## 已解决问题（Closed）
+### ISSUE-00x: 问题标题 ✅
+- **解决时间**：YYYY-MM-DD
+- **根因**：一句话
+- **方案**：一句话
+
+## 已验证做不通的方向（Won't Fix）
+- 方向A → 原因（什么情况下试过、结果是什么）
+```
+
+### 11. memory/index.md 模板（工程记忆入口）
+
+```markdown
+# 工程记忆 bundle
+
+> 新会话恢复顺序：根 AGENTS.md（规则）→ 本页 index（有什么、在哪）
+> → 按需沿每篇的「来源与下钻」深读原始文档。
+> 本 bundle 只做"结论 + 指针"，不复制、不替代原文。
+> 易变状态（进度、计数、当天日期）不进本 bundle，需要时实时读台账。
+
+# 架构（Architecture）
+* [架构名称](concepts/architecture-xxx.md) - 一句话说明（来源 ADR-xxx）
+
+# 链路（Workflow）
+* [链路名称](concepts/workflow-xxx.md) - 一句话说明
+
+# 治理（Standard）
+* [规则名称](concepts/standard-xxx.md) - 一句话说明
+```
+
+### 12. 批次状态 JSON 模板（批量任务）
+
+```json
+{
+  "batch_id": "capture_20260915_001",
+  "task_type": "video_download",
+  "started_at": "2026-09-15T10:00:00+08:00",
+  "updated_at": "2026-09-15T10:30:00+08:00",
+  "status": "running",
+  "total": 313,
+  "completed": 150,
+  "failed": 2,
+  "skipped": 0,
+  "current_item": "item_150_xxx",
+  "failed_items": [
+    {"name": "item_023_xxx", "reason": "下载超时", "retry_count": 3}
+  ]
+}
+```
+
+### 13. 文档同步检查清单模板（提交前必跑）
+
+```markdown
+## 一、任务状态同步
+- [ ] TASK_STATUS.md 已更新（工单状态正确、"下一步"已更新）
+- [ ] ISSUES.md 已更新（新问题已记录、已解决问题已标注）
+
+## 二、文档关联同步
+- [ ] DOCUMENTATION_MAP.md 已更新（新增文档已加入、链接有效）
+- [ ] WORKFLOW.md 已更新（如流程变更）
+- [ ] REQUIREMENTS.md 已更新（如需求变更）
+
+## 三、目录结构同步
+- [ ] DIRECTORY_STRUCTURE.md 已更新
+- [ ] .gitignore 已检查（git status 确认没有不该提交的文件）
+
+## 四、工具与脚本同步
+- [ ] 新增脚本已加入文档地图
+- [ ] 脚本参数变更已更新到对应 SOP
+
+## 五、工程记忆同步（如稳定结论变更）
+- [ ] memory/index.md 已更新
+- [ ] 相关 concept 已修订
+
+## 六、ADR 决策记录（如重要决策）
+- [ ] 重要决策已记录到 ADR-xxx.md
+- [ ] 决策状态正确
+```
+
+### 14. 项目级 AGENTS.md 模板（AI 操作手册）
+
+```markdown
+# 项目 AGENTS.md（AI 操作手册）
+
+> 本文件是给 AI 看的操作手册，命令式、可执行。
+> 给人看的项目概览在 README.md。
+> 与全局 AGENTS.md 冲突时，本文件优先（仅本项目内）。
+
+## 1. 项目定位与边界
+- 做什么：一句话
+- 不做什么：一句话（边界）
+
+## 2. 目录约定
+- 什么东西放哪：列出关键目录
+- 路径规则：禁止硬编码 /Users/<用户名>，用 $HOME / 相对路径
+- 禁止修改：列出绝对不能动的目录/文件
+
+## 3. 工具用法
+- 本项目用什么工具、怎么调用、有什么坑
+
+## 4. 新会话恢复顺序
+1. 读本文件（AGENTS.md）
+2. 读 docs/DOCUMENTATION_MAP.md（文档地图）
+3. 读 docs/project-management/memory/index.md（工程记忆）
+4. 读 project-management/active/TASK_STATUS.md（当前进度）
+
+## 5. 提交前检查
+- 按 docs/project-management/standards/DOC_SYNC_CHECKLIST.md 跑一遍
+- git status 确认没有不该提交的文件
+```
 
 ---
 

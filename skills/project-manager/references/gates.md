@@ -1,6 +1,5 @@
 # L3 · gates 阶段门评审（Phase-Gate Review）
 
-> 最后更新：2026-09-15
 > 回答的问题：**"项目到节点了，继续往下走，还是卡住/砍掉？"**
 > 对应专业方法：**Phase-Gate / Stage-Gate** 方法论——在阶段之间设检查点，做 Go/Conditional/Hold/Kill 决策。
 

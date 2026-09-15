@@ -1,6 +1,5 @@
 # L2 · close 收尾与归档（Closing & Archival）
 
-> 最后更新：2026-09-15
 > 回答的问题：**"项目做完了或想砍了，怎么收尾才不留尾巴？"**
 > 对应专业方法：PMBOK 的**项目收尾过程组** + 技术退役（Decommissioning）Playbook。
 

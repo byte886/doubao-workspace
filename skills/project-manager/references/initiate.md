@@ -1,6 +1,5 @@
 # L2 · initiate 项目启动（Initiation）
 
-> 最后更新：2026-09-15
 > 回答的问题：**"新项目怎么立项？目录怎么搭？写什么就算开工了？"**
 > 对应专业方法：PMBOK 的 **Project Charter（项目章程）** 阶段——正式授权项目存在，写清目标、成功标准、边界。
 
@@ -128,7 +127,7 @@
 4. 若需要多维表格做台账，调用 **lark-base** 建一张表（列定义见 [portfolio.md](portfolio.md)）。
 5. 若是已有空间下的子项目，直接在该空间下建子树即可，不必新建空间。
 
-> **股票投资若要作为项目管理**：当前你 9 个飞书 Wiki 空间里**没有独立的股票知识空间**（2026-09-15 实采确认），股票资料目前散落在多维表格或其他空间下。若决定把"股票投资"正式立为项目，可按本模板新建一个知识空间（如「股票投资组合」），把持仓、研究、复盘分桶；如果只是轻量记账，用 lark-base 多维表格做台账即可，不必建完整空间。
+> **股票投资若要作为项目管理**：首次实采时你的飞书 Wiki 空间里没有独立的股票知识空间（以现状为准），股票资料目前散落在多维表格或其他空间下。若决定把"股票投资"正式立为项目，可按本模板新建一个知识空间（如「股票投资组合」），把持仓、研究、复盘分桶；如果只是轻量记账，用 lark-base 多维表格做台账即可，不必建完整空间。
 
 ## 企业级重型 vs 个人轻量对照
 
@@ -151,4 +150,4 @@
 - Project Charter 必要性：PMI "Cancelling a Project Without Cancelling a Career" https://www.pmi.org/learning/library/cancelling-project-without-cancelling-career-5896
 - PARA Projects 定义：https://www.buildingasecondbrain.com/para
 - PARA 7±2 活跃项目纪律：https://sinapsus.com/blog/how-to-build-second-brain-guide
-- 用户飞书知识库结构实采（CPA/珠宝/游戏/海口评估等 9 空间）：2026-09-15 调研报告
+- 用户飞书知识库结构实采（CPA/珠宝/游戏/海口评估等空间）：首次盘点调研报告（以飞书现状为准）

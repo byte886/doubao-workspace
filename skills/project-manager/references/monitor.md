@@ -1,6 +1,5 @@
 # L2 · monitor 执行与监控（Execution & Monitoring / Governance）
 
-> 最后更新：2026-09-15
 > 回答的问题：**"项目开工后怎么管？我能拍板什么？什么情况必须停下来？"**
 > 对应专业方法：PMBOK 8 的**治理绩效域**（Governance Performance Domain）+ 执行过程组的**监控**。
 

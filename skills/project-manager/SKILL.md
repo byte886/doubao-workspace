@@ -17,7 +17,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附可执行脚本、不
 
 命中以下任一场景就打开本技能对应模块：
 
-- **想启动一个新项目**（新网站、新调研、新课程、新业务线）——不知道该怎么立项、目录怎么搭 → 读 [initiate](#三层架构速览)
+- **想启动一个新项目**（新网站、新调研、新课程、新业务线）——不知道该怎么立项、目录怎么搭 → 读 [initiate](references/initiate.md)
 - **项目太多、脑子里一团浆糊**，想盘一下哪些在做、哪些半死不活、该砍哪个 → 读 portfolio
 - **项目做着做着开始失控**：不知道自己能拍板什么、什么情况该喊停 → 读 monitor
 - **到季度末/半年末，想集中判断一批项目继续还是砍掉** → 读 gates
@@ -54,6 +54,7 @@ compatibility: "纯方法论与 Markdown 模板，不随附可执行脚本、不
 | **L2 监控** | monitor 执行与治理 | 做着做着不知道自己能拍板什么、硬扛到爆 | 治理卡 + 决策记录（ADR）+ 每周 15 分钟自查 | [`references/monitor.md`](references/monitor.md) |
 | **L3 评审** | gates 阶段门评审 | 每个项目都到了该判断"继续/砍掉"的节点 | 季度批量评审，每项目 3 分钟，Go/Conditional/Hold/Kill | [`references/gates.md`](references/gates.md) |
 | **L2 收尾** | close 收尾与归档 | 项目做完/砍掉后直接丢着，资料散落、订阅还在扣费 | 关闭六步 + 一页退役总结 + 移入归档不删除 | [`references/close.md`](references/close.md) |
+| **执行层** | execution-patterns 实战执行模式 | 项目进入执行阶段后，缺少"能跑起来"的轻量治理机制（任务台账、问题清单、批量任务断点、文档同步） | 工程记忆体系 + 活跃任务管理(TASK_STATUS+ISSUES) + 批量任务执行规范 + 文档同步检查清单 + 存储分工硬约束 + 数据层编号 + 项目级AGENTS + 评审批次 | [`references/execution-patterns.md`](references/execution-patterns.md) |
 | 汇总 | templates 模板汇总 | 一次性复制所有模板 | 全部模板索引 | [`references/templates.md`](references/templates.md) |
 
 ## 核心概念（通俗解释）
@@ -92,7 +93,8 @@ compatibility: "纯方法论与 Markdown 模板，不随附可执行脚本、不
 | 给项目定"什么情况自己拍板、什么情况暂停重评" | `references/monitor.md` | 治理卡模板、决策记录 ADR 模板 |
 | 季度集中评审一批项目、过阶段门 | `references/gates.md` | 门决策记录模板、评审 Checklist |
 | 项目做完/砍掉怎么收尾、归档 | `references/close.md` | 退役总结模板、关闭 Checklist |
-| 一次性复制所有模板 | `references/templates.md` | 全部模板汇总 |
+| 项目进入执行阶段，需要任务台账/问题清单/批量任务断点/文档同步 | `references/execution-patterns.md` | TASK_STATUS模板、ISSUES模板、工程记忆、批次状态JSON、文档同步清单、存储分工、数据层编号 |
+| 一次性复制所有模板 | `references/templates.md` | 全部模板汇总（含实战模式模板） |
 
 ## 来源与边界
 
@@ -105,7 +107,8 @@ compatibility: "纯方法论与 Markdown 模板，不随附可执行脚本、不
 - **项目关闭 Checklist**：projectmanagementformula https://projectmanagementformula.com/project-closure-checklist/
 - **技术退役时间线**：beefed.ai https://beefed.ai/en/technical-decommissioning-checklist-data-retention
 - **PARA**：Tiago Forte https://www.buildingasecondbrain.com/para
-- **结构实证**：用户飞书 9 个知识空间实采（CPA 备考库、珠宝库、AI、SEO、游戏项目等），2026-09-15 调研报告
+- **结构实证**：用户飞书知识空间首次实采（CPA 备考库、珠宝库、AI、SEO、游戏项目等），以飞书现状为准
+- **实战模式实证**：用户真实项目 `multiplatform-content-pipeline`（原股票知识库）的 `docs/project-management/` 体系实采（ADR、工程记忆 bundle、TASK_STATUS、ISSUES、批量任务执行规范、文档同步检查清单、存储分工硬约束），首次精读提炼
 
 **本技能不覆盖什么**：
 - 不覆盖**具体任务执行**（写代码、写文章、做设计）——那是 idea-to-tickets 之后的事。
