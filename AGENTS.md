@@ -116,3 +116,13 @@
 - 加解密、明文巡检、代理开关等**动作**：mac-system-toolkit（`secrets`、`audit-secrets.sh`、`vpn-control.md`）。
 - 两台机器**具体**有哪些凭证、落点、账号、代理客户端与端口等**台账事实**：dual-machine-manager。
 - 每轮在场的最高原则只点一句：明文密钥不进 git/日志/对外材料、人只记 1 个主口令、怀疑泄漏先轮换；细则、强度标准与清单一律以技能正文为准。
+
+***
+
+## 七、横切治理技能路由（双机运维 / 项目管理）
+
+安全路由见第六章。另两个与 security-baseline 平级的全局横切治理技能，命中即 Read 其 `SKILL.md` 再按索引下钻，规则层只挂指针、不复制方法论：
+
+- **dual-machine-manager（双机管家）**：涉及两台 Mac、`ssh wj`/`ssh cw`、双机 git 同步（对端只 ff-only、禁 pull）、launchd/brew/cron 后台服务、远程关机、OpenToken、双机硬件型号/软件/包管理/凭证落点台账、日常巡检与双机差异一致性时读它。
+- **project-manager（项目管理）**：新方向立项（Project Charter/目录模板）、多项目组合盘点与优先级、健康灯、活跃项目 7±2 纪律、阶段门 G1/G2/G3、项目收尾退役（退役清单须含凭证吊销/轮换，对接第六章）时读它。
+- **三者分工与关系**：security-baseline 定"安全规矩与凭证来处"（脑）、mac-system-toolkit 提供加解密/巡检/代理等"动作"（手）、dual-machine-manager 记"双机台账与运维"（账）、project-manager 管"项目生命周期"。业务项目内只留项目特有约定 + 指向这些全局技能的指针，不把通用方法抄进每个项目（DRY，见第五章）。

@@ -57,7 +57,7 @@
 | `wechat-control` | 微信本地数据库只读查询与 AI 总结（基于 wx-cli，**开发中**，目录暂含研发文档） |
 | `dual-machine-manager` | 两台 Mac（本机 cw + 远程黑苹果 wj）统一运维管家：系统信息、SSH 互访、launchd/brew/cron 服务管理、凭证管理、OpenToken/TokenRank、包管理/IDE/软件盘点、SSH密钥/Git工具、机器健康度、双机差异对比与一致性维护、远程关机、双机同步、日常巡检、故障排查 SOP |
 | `project-manager` | 个人/小团队多项目并行的轻量项目管理方法论，按专业三层骨架组织：L1 项目组合管理 PPM（盘点/优先级/健康灯/7±2纪律）、L2 单项目生命周期（启动 Initiate / 执行监控 Monitor / 收尾归档 Close）、L3 阶段门评审 Phase-Gate（G1立项/G2验证/G3发布，Go-Conditional-Hold-Kill，批量评审）。源自 PMBOK 8、PPM、伯克利状态定义、PARA/GTD，默认轻量版 |
-| `security-baseline` | 全局横切的安全基线与凭证治理（纯方法论、无脚本）：凭证分级与"存哪里"决策、人因主口令与密码管理器选型、公开仓五道防线与泄漏应急、VPN/代理安全；加解密/巡检工具复用 mac-system-toolkit，双机凭证台账在 dual-machine-manager |
+| `security-baseline` | 全局横切的开发/AI 安全基线与"凭证来处·取密 SOP"（纯方法论、无脚本，**不改造用户个人密码习惯**）：凭证分级与"存哪里"、AI/开发取—用—弃取密流程、公开仓五道防线与泄漏应急、VPN/代理安全；加解密/巡检动作复用 mac-system-toolkit，双机凭证台账在 dual-machine-manager |
 
 > 新建技能一律放 `skills/`，且**目录名必须等于 SKILL.md frontmatter 的 name**；官方技能在应用内部目录，不放个人产物。技能规范（平台标注、开发中约定）见 `AGENTS.md` 第四章。
 
@@ -68,4 +68,6 @@
 - 记忆写入协议、校准退役、体量红线、口令（更新记忆/读记忆/忘掉）：`AGENTS.md` 1.2–1.5。
 - 归档流程、询问口令、协作机制专用容器：`AGENTS.md` 第二章；空间路由表唯一维护处为 `PROFILE.md` 4.1。
 - 技能平台标注与目录规范：`AGENTS.md` 第四章；技能清单只在本文件第四节维护。
-- 安全 / 凭证 / 主口令 / 密码管理器 / 公开仓防泄漏 / 密钥泄漏应急 / VPN 安全：方法论看 `skills/security-baseline/SKILL.md`，硬红线在 `AGENTS.md` 第六章、代理技术参数在其第三章，双机凭证台账在 dual-machine-manager。
+- 安全 / 凭证 / 主口令 / 公开仓防泄漏 / 密钥泄漏应急 / VPN 安全：方法论看 `skills/security-baseline/SKILL.md`，硬红线在 `AGENTS.md` 第六章、代理技术参数在其第三章，双机凭证台账在 dual-machine-manager。
+- 两台机器 / SSH 互访 / 双机同步 / 后台服务 / 硬件·软件·包管理台账 / 巡检 / 远程关机：看 `skills/dual-machine-manager/SKILL.md`，路由在 `AGENTS.md` 第七章。
+- 立项 / 多项目组合 / 优先级 / 健康灯 / 阶段门 G1-G3 / 项目收尾退役：看 `skills/project-manager/SKILL.md`，路由在 `AGENTS.md` 第七章。
