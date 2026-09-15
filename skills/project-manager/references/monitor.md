@@ -1,7 +1,8 @@
-# 模块 2 · governance 项目治理
+# L2 · monitor 执行与监控（Execution & Monitoring / Governance）
 
 > 最后更新：2026-09-15
-> 目标：提前写清楚**"什么事我自己能拍板、什么情况必须停下来重新想、多久碰一次头"**，避免做着做着要么硬扛到爆、要么事事纠结。
+> 回答的问题：**"项目开工后怎么管？我能拍板什么？什么情况必须停下来？"**
+> 对应专业方法：PMBOK 8 的**治理绩效域**（Governance Performance Domain）+ 执行过程组的**监控**。
 
 ## 治理到底是什么（一句话）
 
@@ -12,6 +13,8 @@
 3. **决策节奏（governance cadence）**：多久花点时间自查一次。
 
 PMBOK 8 把治理提升为一级绩效域，因为审计数据显示：**"缺乏明确治理"和项目失败的相关性，强于预算、范围、技术任何单一因素**。说白了——不是钱不够、技术不行，是"没人说清楚什么时候该停"。
+
+> 来源：https://ppmsi.net/wp-content/uploads/2026/04/ppmsi_pm_simulator.html
 
 ## 企业级三层架构（了解即可，个人场景不用）
 
@@ -69,8 +72,8 @@ PMBOK 8 把治理提升为一级绩效域，因为审计数据显示：**"缺乏
 
 ## 碰节奏（governance cadence）
 - 每周 15 分钟自查：范围还对吗？进度还走得动吗？风险有新的吗？
-- 每季度参加批量评审（见 batch-review）
-- 门节点：G1 立项 / G2 验证 / G3 发布（见 batch-review）
+- 每季度参加批量评审（见 gates.md）
+- 门节点：G1 立项 / G2 验证 / G3 发布（见 gates.md）
 
 ## 升级路径（个人版 = 暂停重评流程）
 1. 命中触发条件 → 把项目状态改为 On Hold
@@ -137,6 +140,30 @@ PMBOK 8 把治理提升为一级绩效域，因为审计数据显示：**"缺乏
 - 任一黄灯 → 在台账更新健康灯，下周聚焦补救
 - 命中暂停触发条件 → 改 On Hold，等季度评审
 
+## 风险登记册（轻量版）
+
+企业级风险登记册是一张大表：风险、概率、影响、应对计划、owner。个人场景压成三行：
+
+```markdown
+# 风险登记 · <项目名>（每周自查时更新）
+
+| 风险 | 概率(1-5) | 影响(1-5) | 应对 | 状态 |
+|---|---|---|---|---|
+| <例：Google 收录慢> | 4 | 3 | 先做 10 篇长尾，等 4 周 | 监控中 |
+```
+
+> 企业级健康扫描对照 PMBOK 10 领域（整合/范围/进度/成本/质量/资源/沟通/风险/采购/干系人）。个人版只问三问：范围还对吗 / 进度还走得动吗 / 风险有新的吗。
+> 来源：https://www.pmi.org/learning/library/healthy-project-analyze-health-risks-8609
+
+## 企业级重型 vs 个人轻量对照
+
+| 主题 | 企业级重型 | 个人轻量（推荐你用） |
+|---|---|---|
+| 治理架构 | Sponsor/Steering Committee/PM 三层 + CCB + RACI 全表 | 一页治理卡：独立决策阈值 + 暂停重评触发条件 |
+| 风险登记 | 完整风险登记册 + 概率影响矩阵 + 定期风险评审 | 三行表，每周自查时更新 |
+| 进度监控 | 燃尽图/挣值管理 EVM/绩效报告 | 每周 15 分钟三问自查 + 健康灯 |
+| 变更控制 | CCB 逐项审批 | 范围变更自己定，但记 ADR |
+
 ## 反模式
 
 - 不写治理卡，靠"到时候再说" → 真到超支/延期时凭感觉硬扛。
@@ -152,3 +179,4 @@ PMBOK 8 把治理提升为一级绩效域，因为审计数据显示：**"缺乏
 - RACI 矩阵样表：https://open-exam-prep.com/exams/pmp/process-domain-execution-control/establishing-project-governance
 - 敏捷治理三原则：https://www.pmp-guide.com/blog/governance-frameworks-pmo-2026-pmp-exam
 - 升级路径：https://trustedinstitute.com/flashcards/pmp-pmbok8/business-governance-compliance/
+- PMI 项目健康度分析：https://www.pmi.org/learning/library/healthy-project-analyze-health-risks-8609
