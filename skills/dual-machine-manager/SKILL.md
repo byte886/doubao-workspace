@@ -1,6 +1,6 @@
 ---
 name: dual-machine-manager
-description: 两台 Mac（本机 cw/192.168.2.8 + 远程黑苹果 wj/192.168.2.9）的统一管家技能。覆盖系统信息、SSH 互访、launchd 后台服务、brew 服务、cron、凭证管理、OpenToken/TokenRank、远程关机、双机同步、日常巡检、故障排查等全部运维管理活。当用户提到「两台机器」「机器管家」「巡检」「服务状态」「后台进程」「远程关机」「双机同步」「OpenToken」「TokenRank」「wj」「黑苹果」「192.168.2.9」「凭证」「密码管理」等运维管理相关需求时使用本技能。
+description: 两台 Mac（本机 cw/192.168.2.8 + 远程黑苹果 wj/192.168.2.9）的统一管家技能。覆盖系统信息、SSH 互访、launchd 后台服务、brew 服务、cron、凭证管理、OpenToken/TokenRank、远程关机、双机同步、日常巡检、故障排查等全部运维管理活；并沉淀双机深度盘点：包管理工具（Homebrew/mise/cargo/npm/pip）、IDE 与常用软件、SSH/密钥/钥匙串/Git/GitHub 多账号、机器健康度（内存/磁盘/进程/巡检）、双机差异对比与一致性维护。当用户提到「两台机器」「机器管家」「巡检」「服务状态」「后台进程」「远程关机」「双机同步」「OpenToken」「TokenRank」「wj」「黑苹果」「192.168.2.9」「凭证」「密码管理」「包管理」「Homebrew」「mise」「IDE」「VS Code 扩展」「ssh-agent」「git credential」「GitHub 多账号」「磁盘空间」「内存占用」「健康度」「双机差异」「一致性」等运维管理相关需求时使用本技能。
 compatibility: macOS（已验证：macOS 15.7.8 x86_64，两台机器均为 Mac）；未验证 Windows / Linux
 ---
 
@@ -34,6 +34,11 @@ compatibility: macOS（已验证：macOS 15.7.8 x86_64，两台机器均为 Mac�
 | [references/credentials.md](references/credentials.md) | 需要密码、token、密钥等凭证时 | sudo 密码、SSH 密钥、GitHub PAT、关机 Webhook token、OpenToken 凭证的位置与管理方式（敏感值不在这里明文存储） |
 | [references/opentoken.md](references/opentoken.md) | 需要安装/验证/卸载/排查 OpenToken（TokenRank）时 | OpenToken 全流程 SOP：安装、验证（必做四项）、常用命令、文件位置、卸载、故障排查、当前部署状态 |
 | [references/sop.md](references/sop.md) | 需要执行标准运维流程时 | 日常巡检、双机同步、服务管理、远程关机、故障排查、新工具接入、凭证轮换等 SOP |
+| [references/package-managers.md](references/package-managers.md) | 需要对比/安装/排障包管理器时 | 双机包管理工具对比（Homebrew/npm/pip3/gem/cargo/mise/pnpm/yarn/go/java/maven/gradle）、本机 206 formulae 分类、远程机无 Homebrew 的应对、npm sandbox 隔离、mise 作用、一致性维护建议 |
+| [references/ide-and-software.md](references/ide-and-software.md) | 需要盘点 IDE/软件或修远程机 code CLI 时 | IDE/开发工具对比、本机 VS Code 14 扩展清单、远程机无 code CLI 修复、常用软件按分类双机对比（共有/仅本机/仅远程机） |
+| [references/security-and-git.md](references/security-and-git.md) | 需要处理 SSH/密钥/钥匙串/Git/GitHub 多账号时 | SSH 配置对比、本机已加载密钥指纹、远程机 ssh-agent 未运行修复 SOP、钥匙串/GPG/密码管理器状态、Git 工具对比、远程机 git credential helper 失效修复、GitHub 三账号分流 |
+| [references/health.md](references/health.md) | 需要看机器健康度/磁盘/内存/巡检命令时 | 资源占用对比、🔴4 个优先问题、🟡关注项、🟢健康项、磁盘详情、Home 目录大户、系统更新、只读巡检命令清单 |
+| [references/comparison.md](references/comparison.md) | 需要理解双机定位/差异/一致性策略时 | 双机定位总结、全维度差异总表、必须一致/允许差异/需修复不对称、双机同步 SOP、新工具双机决策流程 |
 
 ## 常用快速操作
 
@@ -47,6 +52,15 @@ df -h / | tail -1
 
 # 远程机
 ssh wj 'ls -1 ~/Library/LaunchAgents/ && launchctl list | grep -v "com.apple" && df -h / | tail -1'
+```
+
+### 健康快检（资源/磁盘/内存/ssh-agent/git credential）
+```bash
+# 本机：内存压力 + 磁盘 + Home 大户
+memory_pressure | tail -3; df -h /; du -sh ~/* | sort -rh | head -5
+
+# 远程机：一次覆盖 4 个已知问题项（见 references/health.md）
+ssh wj 'df -h; echo "---ssh-agent---"; ssh-add -l 2>&1; echo "---credential---"; git config --global --get credential.helper; echo "---内存---"; vm_stat | head -3'
 ```
 
 ### 远程关机
