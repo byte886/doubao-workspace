@@ -92,7 +92,7 @@
 3. **平台标注**：按 1.2「自建技能平台标注（强制）」执行，动手前先 `uname -s` 判平台。
 4. **开发中技能**：允许暂带 PRD/ROADMAP/phase spec/mcp-server 等研发文档，技能稳定后再剥离纯项目材料；哪个技能在开发以 README 清单标注为准。
 5. **清单唯一维护处**：技能清单只在 README 第四节维护（数量以该处为准，本文件不写数字以免过时），本文件不复制；新增、更名或状态变化后同步更新该处。
-6. **路径可移植（双机同步硬要求）**：同一套 `~/Doubao` 在两台 Mac（用户名 chenwenjie、wenjiechen，git 提交统一在 wenjiechen 机执行）间同步。技能与脚本内**禁止硬编码 `/Users/<用户名>`**：Shell 用 `$HOME`、Python 用 `Path.home()`、文档示例用 `~`；注意**引号内和 MCP/GUI 配置框内 `~` 不展开**，这类位置用 `$HOME` 或注明先 `echo ~/...` 取绝对路径。`third-party/`、`target/`、`venv/` 等第三方源码与构建产物不手改（重新构建自动适配）；OKF bundle 里的 `human:<id>` 是作者标识不是路径，保持稳定不改。
+6. **路径可移植（双机同步硬要求）**：同一套 `~/Doubao` 在两台 Mac（用户名 chenwenjie、wenjiechen；**两台均可提交，对端只 ff-only 对齐、禁 pull/合并提交**，提交策略以 dual-machine-manager 的双机同步 SOP 为准）间经 git 同步。技能与脚本内**禁止硬编码 `/Users/<用户名>`**：Shell 用 `$HOME`、Python 用 `Path.home()`、文档示例用 `~`；注意**引号内和 MCP/GUI 配置框内 `~` 不展开**，这类位置用 `$HOME` 或注明先 `echo ~/...` 取绝对路径。`third-party/`、`target/`、`venv/` 等第三方源码与构建产物不手改（重新构建自动适配）；OKF bundle 里的 `human:<id>` 是作者标识不是路径，保持稳定不改。
 
 ***
 
