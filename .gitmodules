@@ -31,3 +31,9 @@
 [submodule "skills/work-doc-extract"]
 	path = skills/work-doc-extract
 	url = git@github.com:byte886/work-doc-extract.git
+[submodule "skills/dual-machine-manager"]
+	path = skills/dual-machine-manager
+	url = git@github.com:byte886/dual-machine-manager.git
+[submodule "skills/project-manager"]
+	path = skills/project-manager
+	url = git@github.com:byte886/project-manager.git
