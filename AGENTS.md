@@ -126,3 +126,13 @@
 - **dual-machine-manager（双机管家）**：涉及两台 Mac、`ssh wj`/`ssh cw`、双机 git 同步（对端只 ff-only、禁 pull）、launchd/brew/cron 后台服务、远程关机、OpenToken、双机硬件型号/软件/包管理/凭证落点台账、日常巡检与双机差异一致性时读它。
 - **project-manager（项目管理）**：新方向立项（Project Charter/目录模板）、多项目组合盘点与优先级、健康灯、活跃项目 7±2 纪律、阶段门 G1/G2/G3、项目收尾退役（退役清单须含凭证吊销/轮换，对接第六章）时读它。
 - **三者分工与关系**：security-baseline 定"安全规矩与凭证来处"（脑）、mac-system-toolkit 提供加解密/巡检/代理等"动作"（手）、dual-machine-manager 记"双机台账与运维"（账）、project-manager 管"项目生命周期"。业务项目内只留项目特有约定 + 指向这些全局技能的指针，不把通用方法抄进每个项目（DRY，见第五章）。
+
+### 7.1 指针方向约定（要逻辑闭环，不要双向循环）
+
+技能/载体之间的"关联指针"必须是**有向无环**的，目标是"从任务进来一路向下能把相关能力串齐、最后回到任务把事做完"，而不是 A 指 B、B 又指回 A 的踢皮球：
+
+- **层次序（箭头只允许自上而下 / 沿任务主流程向前）**：
+  L0 偏好指令 → L1 全局载体（README 导航 / AGENTS 路由 / PROFILE 事实）→ L2 流程方法（project-manager）、横切规矩（security-baseline）→ L3 执行与台账（mac-system-toolkit、dual-machine-manager、各业务技能）→ L4 具体业务项目。
+- **同层只允许"流程步骤联动"的单向边**：如 project-manager 在立项/退役步联动 security-baseline、dual；被联动方**不写回指链接**，只可用一句不带跳转的话陈述自身边界（"X 不属本篇"，不写"X 见某技能"）。
+- **下层不回指上层**：dual / mac-toolkit 等执行层不写"方法论见 security-baseline"这类回边；"做下层任务前先加载哪条上层规矩"由 L1 入口（本章路由）规定加载顺序来保证，例如命中双机凭证时：AGENTS 路由 → 先 security-baseline（规矩）→ 其内部点名去 dual（台账）/ mac-toolkit（动作），单向不回头。
+- **判据**：任意两个节点之间只保留一条方向的边；若发现两边互相点名跳转，删掉回边，改为被指方的"无链接边界陈述"，加载顺序问题交回入口路由。业务项目（叶子）指向全局技能不算回边，因为全局技能不指回具体项目。
