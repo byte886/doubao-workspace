@@ -80,8 +80,8 @@
 
 > 渠道选择原则（连通性为准、专业领域优先权威库）在偏好指令第二章，本章只定技术参数。
 
-1. 代理在本机走 `127.0.0.1:<端口>`，但**端口不写死**：两台机器、ClashX 与 Clash Verge 两类客户端的默认/实际端口本就不同，也可能被手动改过。每次先探测当前客户端的 `mixed-port`/`http-port`/`socks-port`（探测与切换动作在 mac-system-toolkit `vpn-control.md`，各机实际客户端与常态端口的台账在 dual-machine-manager），再用探到的端口做连通性自测：`curl -x http://127.0.0.1:<端口> --max-time 5 https://www.google.com`；超时即判不可用，改用国内渠道（百度、必应国内版、专业数据库等），不反复重试、不强访不可用资源。
-2. 代理只解决"可达性"，不改变凭证红线；代理的安全边界（可信通道、HTTPS、DNS 泄漏/Kill Switch、订阅地址本身属敏感凭证）下钻 `skills/security-baseline/references/network-and-vpn.md`；代理开关与端口探测的**动作**在 mac-system-toolkit `vpn-control.md`，本文件不复制。
+1. 代理在本机走 `127.0.0.1:<端口>`，但**端口不写死**：两台机器、ClashX 与 Clash Verge 两类客户端的默认/实际端口本就不同，也可能被手动改过。每次先探测当前客户端的 `mixed-port`/`http-port`/`socks-port`（探测与切换是 mac-system-toolkit 的代理能力，各机客户端与常态端口台账在 dual-machine-manager），再用探到的端口做连通性自测：`curl -x http://127.0.0.1:<端口> --max-time 5 https://www.google.com`；超时即判不可用，改用国内渠道（百度、必应国内版、专业数据库等），不反复重试、不强访不可用资源。
+2. 代理只解决"可达性"，不改变凭证红线；代理的安全边界（可信通道、HTTPS、DNS 泄漏/Kill Switch、订阅地址本身属敏感凭证）下钻 security-baseline 技能（按其索引找网络篇）；代理开关与端口探测的**动作**是 mac-system-toolkit 的代理能力，本文件不复制。
 
 ***
 
@@ -113,7 +113,7 @@
 安全与凭证是横切能力，**统一按 `skills/security-baseline/` 执行；本文件与 PROFILE 只挂指针、不复制条文**（单一事实源，避免改一处要追多处）。
 
 - 命中"密码/主口令/凭证存哪、密码管理器、token/密钥/私钥、能否进公开仓、泄漏应急、打码脱敏、最小权限、VPN 安全"等任一情形，先 Read `skills/security-baseline/SKILL.md`，再按其按需索引下钻对应 references。
-- 加解密、明文巡检、代理开关等**动作**：mac-system-toolkit（`secrets`、`audit-secrets.sh`、`vpn-control.md`）。
+- 加解密、明文巡检、代理开关等**动作**：mac-system-toolkit（命令 `secrets`、`audit-secrets.sh`，以及代理开关能力）。
 - 两台机器**具体**有哪些凭证、落点、账号、代理客户端与端口等**台账事实**：dual-machine-manager。
 - 每轮在场的最高原则只点一句：明文密钥不进 git/日志/对外材料、人只记 1 个主口令、怀疑泄漏先轮换；细则、强度标准与清单一律以技能正文为准。
 
@@ -136,3 +136,5 @@
 - **同层只允许"流程步骤联动"的单向边**：如 project-manager 在立项/退役步联动 security-baseline、dual；被联动方**不写回指链接**，只可用一句不带跳转的话陈述自身边界（"X 不属本篇"，不写"X 见某技能"）。
 - **下层不回指上层**：dual / mac-toolkit 等执行层不写"方法论见 security-baseline"这类回边；"做下层任务前先加载哪条上层规矩"由 L1 入口（本章路由）规定加载顺序来保证，例如命中双机凭证时：AGENTS 路由 → 先 security-baseline（规矩）→ 其内部点名去 dual（台账）/ mac-toolkit（动作），单向不回头。
 - **判据**：任意两个节点之间只保留一条方向的边；若发现两边互相点名跳转，删掉回边，改为被指方的"无链接边界陈述"，加载顺序问题交回入口路由。业务项目（叶子）指向全局技能不算回边，因为全局技能不指回具体项目。
+- **能力依赖，不位置耦合（解耦）**：技能 A 需要技能 B 时，只声明"我需要什么能力"（可点 B 的**技能名**），**不写 B 的内部文件路径**（不写 `B/references/xxx.md`、`B/scripts/xxx.sh`）；B 内部文件怎么拆分、改名、导航，是 B 自己 SKILL 索引的事，A 不跟着改。技能里只保留两类"位置"：① 指向**自身** references 的内部导航；② 稳定的**调用接口/命令名**（如全局命令 `secrets`、`audit-secrets.sh`、`gita`——这是要执行的接口，不是对方文档位置）。
+- **位置知识只集中在入口层**："哪个能力在哪个技能、入口文件是什么"只在 README 技能清单与 AGENTS 路由维护一份，且只到**技能级**（点名技能 / 其 SKILL.md），不深入到对方 references 文件；技能正文不再重复维护"对方文件在哪"。

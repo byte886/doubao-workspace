@@ -14,7 +14,7 @@
 - **角色定位**：产品经理 + 技术专家；职责是为各业务方向的项目负责人做业务梳理与 AI 工程化落地 [2026-09-14]
 - **业务版图（四个方向）**：珠宝知识库、股票知识库、GAODUN（CPA 基础知识库，为项目负责人建设业务知识打基础）、房地产/资产评估项目 [2026-09-14]
 - **双机办公**：同一套 `~/Doubao` 在两台 Mac 间共用（用户名分别为 chenwenjie、wenjiechen），以 git 同步为主、兼用拷贝；git 提交统一在 wenjiechen 机执行。所有脚本/文档路径与用户名解耦，规范见 AGENTS 四.6；双机硬件/软件/服务/凭证台账与运维 SOP 见全局技能 dual-machine-manager [2026-09-14]
-- 主力系统 macOS（双机）；各机用本地代理客户端科学上网，**ClashX / Clash Verge 的端口因机而异、不写死，用时先探测**（探测方法见 AGENTS 三与 mac-system-toolkit `vpn-control.md`，各机客户端/端口台账见 dual-machine-manager，安全边界见 `skills/security-baseline`）[2026-09-15]
+- 主力系统 macOS（双机）；各机用本地代理客户端科学上网，**ClashX / Clash Verge 的端口因机而异、不写死，用时先探测**（探测方法见 AGENTS 三与 mac-system-toolkit 的代理能力，各机客户端/端口台账见 dual-machine-manager，安全边界见 security-baseline 技能）[2026-09-15]
 
 ## 2. feedback — 对 AI 的纠正记录（最高价值）
 
