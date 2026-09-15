@@ -39,6 +39,7 @@
 3. 命中偏好指令"细则下钻"场景（记忆写入、归档细则、代理参数、技能规范）时，读 `AGENTS.md` 对应章节；
 4. 任务匹配时加载 `skills/<技能>/SKILL.md`；
 5. 若选了某个项目文件夹，再读该项目自己的 `AGENTS.md` 与台账——项目内规则优先于全局。
+6. **续接未完成的长任务**：先找该项目随 git 走的交接档（handoff，多在项目 `project-management/` 下），按其“下一步先读哪个文件”接手，不依赖平台自动摘要；一个会话只推进一条主线，切大主题就新开会话（纪律与模板见 project-manager 技能）。
 
 ## 四、自建技能清单（`skills/`，唯一根目录，共 14 个）
 
@@ -56,7 +57,7 @@
 | `okf-wiki` | OKF v0.2 本地结构化知识库 / 跨会话外置记忆（本地目录，**不是飞书空间**） |
 | `wechat-control` | 微信本地数据只读查询/AI 总结、语音转写、消息监控、受控写（仅小号 alt）与可选 MCP（基于 wx-cli，微信锁 ~4.1.8）；运行面为 SKILL+references+scripts，docs/ 设计文档与表结构字典脱敏后明文随仓，实测流水日志等过程件不保留（个人数据三归宿：脱敏随仓 / 加密 `.enc` 随仓 / 无价值删除，见 security-baseline） |
 | `dual-machine-manager` | 两台 Mac（本机 cw + 远程黑苹果 wj）统一运维管家：系统信息、SSH 互访、launchd/brew/cron 服务管理、凭证管理、OpenToken/TokenRank、包管理/IDE/软件盘点、SSH密钥/Git工具、机器健康度、双机差异对比与一致性维护、远程关机、双机同步、日常巡检、故障排查 SOP |
-| `project-manager` | 个人/小团队多项目并行的轻量项目管理方法论，按专业三层骨架组织：L1 项目组合管理 PPM（盘点/优先级/健康灯/7±2纪律）、L2 单项目生命周期（启动 Initiate / 执行监控 Monitor / 收尾归档 Close）、L3 阶段门评审 Phase-Gate（G1立项/G2验证/G3发布，Go-Conditional-Hold-Kill，批量评审）。源自 PMBOK 8、PPM、伯克利状态定义、PARA/GTD，默认轻量版 |
+| `project-manager` | 个人/小团队多项目并行的轻量项目管理方法论，按专业三层骨架组织：L1 项目组合管理 PPM（盘点/优先级/健康灯/7±2纪律）、L2 单项目生命周期（启动 Initiate / 执行监控 Monitor / 收尾归档 Close）、L3 阶段门评审 Phase-Gate（G1立项/G2验证/G3发布，Go-Conditional-Hold-Kill，批量评审）。源自 PMBOK 8、PPM、伯克利状态定义、PARA/GTD；含执行治理（L0/L1/L2 变更分级、冷启动/续接双路径、单会话单主题与交接档 handoff），默认轻量版 |
 | `security-baseline` | 全局横切的开发/AI 安全基线与"凭证来处·取密 SOP"（纯方法论、无脚本，**不改造用户个人密码习惯**）：凭证分级与"存哪里"、AI/开发取—用—弃取密流程、公开仓五道防线与泄漏应急、VPN/代理安全；加解密/巡检动作复用 mac-system-toolkit，双机凭证台账在 dual-machine-manager |
 
 > 新建技能一律放 `skills/`，且**目录名必须等于 SKILL.md frontmatter 的 name**；官方技能在应用内部目录，不放个人产物。技能规范（平台标注、运行/开发面分层、切分合并判据、评审 checklist）见 `AGENTS.md` 第四章。
