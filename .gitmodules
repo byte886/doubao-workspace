@@ -40,3 +40,6 @@
 [submodule "skills/security-baseline"]
 	path = skills/security-baseline
 	url = git@github.com:byte886/security-baseline.git
+[submodule "skills/local-trajectory-recall"]
+	path = skills/local-trajectory-recall
+	url = git@github.com:byte886/local-trajectory-recall.git
