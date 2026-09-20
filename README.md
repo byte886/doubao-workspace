@@ -59,7 +59,7 @@
 | `dual-machine-manager` | 两台 Mac（本机 cw + 远程黑苹果 wj）统一运维管家：系统信息、SSH 互访、launchd/brew/cron 服务管理、凭证管理、OpenToken/TokenRank、包管理/IDE/软件盘点、SSH密钥/Git工具、机器健康度、双机差异对比与一致性维护、远程关机、双机同步、日常巡检、故障排查 SOP |
 | `project-manager` | 个人/小团队多项目并行的轻量项目管理方法论，按专业三层骨架组织：L1 项目组合管理 PPM（盘点/优先级/健康灯/7±2纪律）、L2 单项目生命周期（启动 Initiate / 执行监控 Monitor / 收尾归档 Close）、L3 阶段门评审 Phase-Gate（G1立项/G2验证/G3发布，Go-Conditional-Hold-Kill，批量评审）。源自 PMBOK 8、PPM、伯克利状态定义、PARA/GTD；含执行治理（L0/L1/L2 变更分级、冷启动/续接双路径、单会话单主题与交接档 handoff），默认轻量版 |
 | `security-baseline` | 全局横切的开发/AI 安全基线与"凭证来处·取密 SOP"（纯方法论、无脚本，**不改造用户个人密码习惯**）：凭证分级与"存哪里"、AI/开发取—用—弃取密流程、公开仓五道防线与泄漏应急、VPN/代理安全；加解密/巡检动作复用 mac-system-toolkit，双机凭证台账在 dual-machine-manager |
-| `local-trajectory-recall` | 跨会话检索豆包本地落盘的对话历史（trajectory.jsonl）：上下文被压缩/重启后找回"之前讨论、决定、查过但当前已没有"的原话；list 列历史主会话、search 关键词（可跨全部会话）、按 id 定位、export 导出。只本机自用，trajectory 含系统提示/工具返回/token，绝不粘进 git/文档/对外；整理过的结论仍以各项目 handoff/ADR/需求为准，本技能只用于对原文 |
+| `local-trajectory-recall` | **豆包专属**（依赖豆包桌面端本地落盘的 trajectory，其他 AI/平台无此数据、用不了）：跨会话检索对话历史（trajectory.jsonl）：上下文被压缩/重启后找回"之前讨论、决定、查过但当前已没有"的原话；list 列历史主会话、search 关键词（可跨全部会话）、按 id 定位、export 导出。只本机自用，trajectory 含系统提示/工具返回/token，绝不粘进 git/文档/对外；整理过的结论仍以各项目 handoff/ADR/需求为准，本技能只用于对原文 |
 
 > 新建技能一律放 `skills/`，且**目录名必须等于 SKILL.md frontmatter 的 name**；官方技能在应用内部目录，不放个人产物。技能规范（平台标注、运行/开发面分层、切分合并判据、评审 checklist）见 `AGENTS.md` 第四章。
 
