@@ -4,9 +4,9 @@
 [submodule "skills/face-detect"]
 	path = skills/face-detect
 	url = git@github.com:byte886/face-detect.git
-[submodule "skills/captcha-reader"]
-	path = skills/captcha-reader
-	url = git@github.com:byte886/captcha-reader.git
+[submodule "skills/challenge-reader"]
+	path = skills/challenge-reader
+	url = git@github.com:byte886/challenge-reader.git
 [submodule "skills/idea-to-tickets"]
 	path = skills/idea-to-tickets
 	url = git@github.com:byte886/idea-to-tickets.git
