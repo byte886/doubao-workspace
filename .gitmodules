@@ -7,9 +7,6 @@
 [submodule "skills/challenge-reader"]
 	path = skills/challenge-reader
 	url = git@github.com:byte886/challenge-reader.git
-[submodule "skills/idea-to-tickets"]
-	path = skills/idea-to-tickets
-	url = git@github.com:byte886/idea-to-tickets.git
 [submodule "skills/image-text-redact"]
 	path = skills/image-text-redact
 	url = git@github.com:byte886/image-text-redact.git
@@ -40,6 +37,6 @@
 [submodule "skills/security-baseline"]
 	path = skills/security-baseline
 	url = git@github.com:byte886/security-baseline.git
-[submodule "skills/local-trajectory-recall"]
-	path = skills/local-trajectory-recall
-	url = git@github.com:byte886/local-trajectory-recall.git
+[submodule "skills/clean-code-gauntlet"]
+	path = skills/clean-code-gauntlet
+	url = git@github.com:byte886/clean-code-gauntlet.git
