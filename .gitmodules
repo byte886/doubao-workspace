@@ -25,9 +25,9 @@
 [submodule "skills/photo-organize"]
 	path = skills/photo-organize
 	url = git@github.com:byte886/photo-organize.git
-[submodule "skills/web-research-toolkit"]
-	path = skills/web-research-toolkit
-	url = git@github.com:byte886/web-research-toolkit.git
+[submodule "skills/research-toolkit"]
+	path = skills/research-toolkit
+	url = git@github.com:byte886/research-toolkit.git
 [submodule "skills/work-doc-extract"]
 	path = skills/work-doc-extract
 	url = git@github.com:byte886/work-doc-extract.git
