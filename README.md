@@ -46,7 +46,7 @@
 | 技能（目录） | 用途 |
 |------|------|
 | `mac-system-toolkit` | Mac 七合一：桌面控制、浏览器自动化、窗口管理、电源、硬件健康、VPN 代理、文件搜索 |
-| `research-toolkit` | 网络调研、网页批量采集转结构化、事实核查与信源溯源（所有调研诉求的统一入口） |
+| `research-toolkit` | 网络调研统一入口：网页采集转结构化、事实核查与信源溯源；**含生财有术 scys-mcp 站内付费圈检索**（精华帖/圈友/航海手册/项目库，OAuth 自动授权，禁止浏览器爬站或磁盘挖 token；授权后工具调不到见其 references/scys-mcp-guide.md §4.1）、Exa/Jina/Firecrawl 海外取数 |
 | `multiplatform-media-fetch` | YouTube / B站 / 抖音 / 小红书 / 加密 VOD 音视频下载与字幕、离线语音转写 |
 | `work-doc-extract` | PDF/扫描件/Office/图片的内容提取与 OCR，统一输出 Markdown |
 | `image-text-redact` | 截图、长图、文本中敏感信息脱敏打码 |
